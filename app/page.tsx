@@ -1,21 +1,14 @@
-"use client";
+import { redirect } from "next/navigation";
+import { getUserFromStore } from "@/lib/auth-utils.ts";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useAuthStore } from "@/lib/store";
+export default async function Home() {
+  const user = await getUserFromStore();
 
-export default function Home() {
-  const router = useRouter();
-  const { user } = useAuthStore();
-
-
-  useEffect(() => {
-    if (user) {
-      router.push(`/dashboard/${user.role.toLowerCase()}`);
-    } else {
-      router.push("/login");
-    }
-  }, [user, router]);
+  if (user) {
+    redirect(`/dashboard/${user.role.toLowerCase()}`);
+  } else {
+    redirect("/login");
+  }
 
   return (
     <div className="flex min-h-screen items-center justify-center">

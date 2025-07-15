@@ -53,6 +53,8 @@ export default function SuperAdminDashboard() {
           password: "temp123",
           role: "Admin",
           isActive: true,
+          walletBalance: 0,
+          transactions: [],
         },
       ]);
       setNewAdminUsername("");

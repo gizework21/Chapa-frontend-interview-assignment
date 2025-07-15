@@ -4,20 +4,83 @@
     "username": "user1",
     "password": "1",
     "role": "User",
-    "isActive": true
+    "isActive": true,
+    "walletBalance": 500,
+    "transactions": [
+      {
+        "id": "1",
+        "amount": 100,
+        "date": "2025-07-10",
+        "description": "Grocery Store"
+      },
+      {
+        "id": "2",
+        "amount": 50,
+        "date": "2025-07-09",
+        "description": "Coffee Shop"
+      },
+      {
+        "id": "3",
+        "amount": 200,
+        "date": "2025-07-08",
+        "description": "Online Purchase"
+      }
+    ]
   },
   {
     "id": "2",
     "username": "admin1",
     "password": "admin123",
     "role": "Admin",
-    "isActive": true
+    "isActive": true,
+    "walletBalance": 1000,
+    "transactions": [
+      {
+        "id": "4",
+        "amount": 300,
+        "date": "2025-07-10",
+        "description": "Electronics"
+      },
+      {
+        "id": "5",
+        "amount": 150,
+        "date": "2025-07-09",
+        "description": "Bookstore"
+      },
+      {
+        "id": "6",
+        "amount": 250,
+        "date": "2025-07-08",
+        "description": "Gym Membership"
+      }
+    ]
   },
   {
     "id": "3",
     "username": "superadmin1",
     "password": "super123",
     "role": "SuperAdmin",
-    "isActive": true
+    "isActive": true,
+    "walletBalance": 5000,
+    "transactions": [
+      {
+        "id": "7",
+        "amount": 1000,
+        "date": "2025-07-10",
+        "description": "Business Expense"
+      },
+      {
+        "id": "8",
+        "amount": 500,
+        "date": "2025-07-09",
+        "description": "Luxury Restaurant"
+      },
+      {
+        "id": "9",
+        "amount": 2000,
+        "date": "2025-07-08",
+        "description": "Hotel Stay"
+      }
+    ]
   }
 ]

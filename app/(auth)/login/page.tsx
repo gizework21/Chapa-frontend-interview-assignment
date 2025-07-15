@@ -24,8 +24,8 @@ import {
 } from "@/components/ui/select";
 import { useAuthStore } from "@/lib/store";
 import { login } from "@/lib/auth";
-import { Role } from "@/types";
 import Cookies from "js-cookie";
+import Spinner from "@/components/Spinner";
 
 const formSchema = z.object({
   username: z.string().min(1, "Username is required"),
@@ -37,6 +37,7 @@ export default function LoginPage() {
   const router = useRouter();
   const { login: setLogin } = useAuthStore();
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -48,13 +49,16 @@ export default function LoginPage() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setLoading(true);
+    setError(null);
+
     const result = await login(values.username, values.password, values.role);
     console.log(result);
+
     if (result) {
       console.log("Login successful:", result);
       setLogin(result.user, result.token);
 
-      // Save token in cookie
       Cookies.set(
         "token",
         `${result.token}-${result.user.id}-${result.user.role}`
@@ -64,12 +68,34 @@ export default function LoginPage() {
     } else {
       setError("Invalid credentials");
     }
+
+    setLoading(false);
   }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100">
       <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
-        <h1 className="mb-6 text-2xl font-bold">Login</h1>
+        <h1 className="mb-4 text-2xl font-bold">Login</h1>
+
+        {/* Example user credentials */}
+        <div className="mb-6 rounded-md bg-gray-50 p-4 text-sm text-gray-700 border">
+          <p className="font-semibold mb-2">Example credentials:</p>
+          <ul className="list-disc ml-5 space-y-1">
+            <li>
+              <span className="font-medium">User</span> — <b>user1</b> /{" "}
+              <b>1</b>
+            </li>
+            <li>
+              <span className="font-medium">Admin</span> — <b>admin1</b> /{" "}
+              <b>admin123</b>
+            </li>
+            <li>
+              <span className="font-medium">SuperAdmin</span> —{" "}
+              <b>superadmin1</b> / <b>super123</b>
+            </li>
+          </ul>
+        </div>
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
@@ -128,8 +154,15 @@ export default function LoginPage() {
               )}
             />
             {error && <p className="text-red-500">{error}</p>}
-            <Button type="submit" className="w-full">
-              Login
+            <Button type="submit" className="w-full" disabled={loading}>
+              {loading ? (
+                <div className="flex items-center justify-center gap-2">
+                  <Spinner />
+                  Logging in...
+                </div>
+              ) : (
+                "Login"
+              )}
             </Button>
           </form>
         </Form>
