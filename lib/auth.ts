@@ -6,7 +6,7 @@ export async function login(
 ): Promise<{ user: User; token: string } | null> {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/login`,
+      `${process.env.next_public_base_url}/api/login`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -21,13 +21,13 @@ export async function login(
 }
 
 export async function getUsers(): Promise<User[]> {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users`);
+  const response = await fetch(`${process.env.next_public_base_url}/api/users`);
   return response.json();
 }
 
 export async function toggleUserActive(id: string, isActive: boolean) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${id}`,
+    `${process.env.next_public_base_url}/api/users/${id}`,
     {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
