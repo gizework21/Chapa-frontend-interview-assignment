@@ -30,7 +30,6 @@ import Spinner from "@/components/Spinner";
 const formSchema = z.object({
   username: z.string().min(1, "Username is required"),
   password: z.string().min(1, "Password is required"),
-  role: z.enum(["User", "Admin", "SuperAdmin"]),
 });
 
 export default function LoginPage() {
@@ -44,7 +43,6 @@ export default function LoginPage() {
     defaultValues: {
       username: "",
       password: "",
-      role: "User",
     },
   });
 
@@ -52,11 +50,10 @@ export default function LoginPage() {
     setLoading(true);
     setError(null);
 
-    const result = await login(values.username, values.password, values.role);
+    const result = await login(values.username, values.password);
     console.log(result);
 
     if (result) {
-      console.log("Login successful:", result);
       setLogin(result.user, result.token);
 
       Cookies.set(
@@ -79,7 +76,9 @@ export default function LoginPage() {
 
         {/* Example user credentials */}
         <div className="mb-6 rounded-md bg-gray-50 p-4 text-sm text-gray-700 border">
-          <p className="font-semibold mb-2">Example credentials: username\password</p>
+          <p className="font-semibold mb-2">
+            Example credentials: username\password
+          </p>
           <ul className="list-disc ml-5 space-y-1">
             <li>
               <span className="font-medium">User</span> — <b>user1</b> /{" "}
@@ -124,31 +123,6 @@ export default function LoginPage() {
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="role"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Role</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select role" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="User">User</SelectItem>
-                      <SelectItem value="Admin">Admin</SelectItem>
-                      <SelectItem value="SuperAdmin">SuperAdmin</SelectItem>
-                    </SelectContent>
-                  </Select>
                   <FormMessage />
                 </FormItem>
               )}
