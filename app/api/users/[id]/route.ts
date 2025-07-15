@@ -17,18 +17,3 @@ export async function PATCH(
   user.isActive = body.isActive;
   return NextResponse.json(user);
 }
-
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  const { id } = params;
-
-  const user = users.find((u) => Number(u.id) === Number(id));
-
-  if (!user) {
-    return NextResponse.json({ error: "User not found" }, { status: 404 });
-  }
-
-  return NextResponse.json(user);
-}
