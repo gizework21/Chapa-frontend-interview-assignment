@@ -79,7 +79,7 @@ export default function LoginPage() {
 
         {/* Example user credentials */}
         <div className="mb-6 rounded-md bg-gray-50 p-4 text-sm text-gray-700 border">
-          <p className="font-semibold mb-2">Example credentials:</p>
+          <p className="font-semibold mb-2">Example credentials: username\password</p>
           <ul className="list-disc ml-5 space-y-1">
             <li>
               <span className="font-medium">User</span> — <b>user1</b> /{" "}
