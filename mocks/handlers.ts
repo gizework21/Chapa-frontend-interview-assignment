@@ -5,7 +5,7 @@ import { User, Transaction } from "@/lib/types";
 
 // Login Handler
 export const handlers = [
-  http.post(`${process.env.NEXT_PUBLIC_BASE_URL || ''}/api/login`, async ({ request }) => {
+  http.post(`/api/login`, async ({ request }) => {
     const { username, password } = (await request.json()) as {
       username: string;
       password: string;
