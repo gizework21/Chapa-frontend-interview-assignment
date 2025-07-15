@@ -1,11 +1,12 @@
 import { Role, User } from "@/types";
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
 export async function login(
   username: string,
-  password: string,
+  password: string
 ): Promise<{ user: User; token: string } | null> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     if (!baseUrl) {
       throw new Error("NEXT_PUBLIC_BASE_URL is not defined");
     }
@@ -23,7 +24,10 @@ export async function login(
 }
 
 export async function getUsers(): Promise<User[]> {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users`);
+  if (!baseUrl) {
+    throw new Error("NEXT_PUBLIC_BASE_URL is not defined");
+  }
+  const response = await fetch(`${baseUrl}/api/users`);
   return response.json();
 }
 
