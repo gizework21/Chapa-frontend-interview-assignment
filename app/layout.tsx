@@ -29,7 +29,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
-        {process.env.node_env === "development" && <DevWorkerClient />}
+        {process.env.NODE_ENV === "development" && <DevWorkerClient />}
       </body>
     </html>
   );
