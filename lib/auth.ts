@@ -32,13 +32,13 @@ export async function getUsers(): Promise<User[]> {
 }
 
 export async function toggleUserActive(id: string, isActive: boolean) {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${id}`,
-    {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ isActive }),
-    }
-  );
+  if (!baseUrl) {
+    throw new Error("NEXT_PUBLIC_BASE_URL is not defined");
+  }
+  const response = await fetch(`${baseUrl}/api/users/${id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ isActive }),
+  });
   return response.json();
 }
