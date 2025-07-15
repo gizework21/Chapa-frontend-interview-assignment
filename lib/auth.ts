@@ -5,17 +5,19 @@ export async function login(
   password: string,
 ): Promise<{ user: User; token: string } | null> {
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/login`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
-      }
-    );
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    if (!baseUrl) {
+      throw new Error("NEXT_PUBLIC_BASE_URL is not defined");
+    }
+    const response = await fetch(`${baseUrl}/api/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
     if (!response.ok) throw new Error("Invalid credentials");
     return await response.json();
-  } catch {
+  } catch (error) {
+    console.error("Login error:", error);
     return null;
   }
 }
