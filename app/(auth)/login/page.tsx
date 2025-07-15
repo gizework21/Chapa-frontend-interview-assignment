@@ -15,13 +15,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { useAuthStore } from "@/lib/store";
 import { login } from "@/lib/auth";
 import Cookies from "js-cookie";
